@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-primary" (click)="showData = !showData"> {{ showData ? 'Ocultar' : 'Mostrar' }} </button>
+
+@if (showData) {
+    <ul>
+        @for (lang of languages; track $index) {
+            <li> {{ lang }} </li>
+        }
+    </ul>
+}

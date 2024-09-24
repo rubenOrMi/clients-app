@@ -1,0 +1,20 @@
+.box-card-outer {
+    display: flex;
+    justify-content: center;
+}
+
+.box-card-inner {
+    width: 60%;
+}
+
+
+
+.validation-form {
+    color: #FAA0A0;
+    float: right;
+}
+
+button {
+    float: right;
+    width: 120px;
+}

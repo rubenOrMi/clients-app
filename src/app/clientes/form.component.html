@@ -1,0 +1,114 @@
+<div class="box-card-outer">
+
+    <!-- @if (errors?.length > 0) {
+        <ul>
+            @for (error of errors; track $index) {
+                <li> {{error}} </li>
+            }
+        </ul>
+    } -->
+    
+    <div class="card bg-dark text-white box-card-inner">
+        <div class="card-header">
+            {{ titulo }}
+        </div>
+        <div class="card-body">
+            <form #clienteForm="ngForm">
+                <div class="row form-group my-2">
+                    <label for="nombre" class="col-sm-4">Nombre</label>
+                    <div class="col-sm-8">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            [(ngModel)]="cliente.nombre" 
+                            name="nombre" 
+                            placeholder="Nombre"
+                            required
+                            minlength="3"
+                            #nombre="ngModel">
+                            @if (nombre.invalid && (nombre.dirty || nombre.touched)) {
+                                <div class="validation-form">
+                                    @if (nombre.errors.required) {
+                                        <span>El nombre es requerido</span>
+                                    } @else if (nombre.errors.minlength) {
+                                        <span>El nombre debe tener mínimo 3 caracteres</span>
+                                    }
+                                </div>
+                            }
+                    </div>
+                </div>
+                <div class="row form-group my-2">
+                    <label for="apellido" class="col-sm-4">Apellido</label>
+                    <div class="col-sm-8">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            [(ngModel)]="cliente.apellido" 
+                            name="apellido" 
+                            placeholder="Apellido"
+                            required
+                            minlength="3"
+                            #apellido="ngModel">
+                            @if (apellido.invalid && (apellido.dirty || apellido.touched)) {
+                                <div class="validation-form">
+                                    @if (apellido.errors.required) {
+                                        <span>El apellido es requerido</span>
+                                    } @else if (apellido.errors.minlength) {
+                                        <span>El apellido debe tener mínimo 3 caracteres</span>
+                                    }
+                                </div>
+                            }
+                    </div>
+                </div>
+                <div class="row form-group my-2">
+                    <label for="email" class="col-sm-4">Email</label>
+                    <div class="col-sm-8">
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            [(ngModel)]="cliente.email" 
+                            name="email" 
+                            placeholder="Email"
+                            required
+                            email
+                            #email="ngModel">
+                            @if (email.invalid && (email.dirty || email.touched)) {
+                                <div class="validation-form">
+                                    @if (email.errors.required) {
+                                        <span>El email es requerido</span>
+                                    } @else if (email.errors.email) {
+                                        <span>El email debe tener un formato válido</span>
+                                    }
+                                </div>
+                            }
+                    </div>
+                </div>
+                <div class="row form-group my-2">
+                    <label for="createAt" class="col-sm-4">Fecha</label>
+                    <div class="col-sm-8">
+                        <input matInput [matDatepicker]="picker" 
+                            class="form-control" 
+                            [(ngModel)]="cliente.createAt" 
+                            name="createAt"
+                            placeholder="fecha"
+                            style="display:inline; width: 300px;">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                </div>
+    
+                <div class="form-group my-2 row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-8">
+                        @if (cliente.id > 0) {
+                            <button [disabled]="!clienteForm.form.valid" type="button" class="btn btn-primary" (click)="update()">Actualizar</button>
+                        } @else {
+                            <button [disabled]="!clienteForm.form.valid" type="button" class="btn btn-primary" (click)="create()">Crear</button>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
