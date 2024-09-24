@@ -10,7 +10,8 @@ import { HttpEventType } from '@angular/common/http';
   selector: 'detalle-cliente',
   standalone: true,
   imports: [DatePipe],
-  templateUrl: './detalle.component.html'
+  templateUrl: './detalle.component.html',
+  styleUrl: './detalle.component.css'
 })
 export class DetalleComponent implements OnInit {
 

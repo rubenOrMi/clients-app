@@ -30,8 +30,9 @@
                     </div>
 
                     @if (progreso > 0) {
-                        <div class="progress" style="height: 40px;">
+                        <div class="progress">
                             <div 
+                                aria-label="progreso"
                                 class="progress-bar progress-bar-striped" 
                                 role="progressbar" 
                                 [style.width]="progreso+'%'" 
