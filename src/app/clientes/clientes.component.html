@@ -1,3 +1,7 @@
+@if (clienteSeleccionado) {
+    <detalle-cliente [cliente]="clienteSeleccionado"></detalle-cliente>
+}
+
 <div class="card border-primary mb-3">
     <div class="card-body text-primary">
       <h5 class="card-title">Listado de clientes</h5>
@@ -12,7 +16,7 @@
                 <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Perfil</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
@@ -24,7 +28,13 @@
                 <tbody>
                     @for (cliente of clientes; track $index) {
                         <tr>
-                            <td > <button type="button" class="btn btn-success" [routerLink]="['/clientes/detalle', cliente.id]"> {{ cliente.id }} </button> </td>
+                            <td (click)="openModal(cliente)" class="lista-foto">
+                                @if (cliente.foto) {
+                                    <img src="http://localhost:8080/api/uploads/img/{{ cliente.foto }}" alt="{{cliente.foto}}" loading="lazy" class="img-thumbnail rounded">
+                                } @else {
+                                    <img src="http://localhost:8080/images/no-user.png" alt="no-photo" loading="lazy" class="img-thumbnail rounded">
+                                }
+                            </td>
                             <td> {{ cliente.nombre }} </td>
                             <td> {{ cliente.apellido | uppercase }} </td>
                             <td> {{ cliente.email }} </td>

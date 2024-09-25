@@ -6,20 +6,25 @@ import Swal from 'sweetalert2';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { tap } from 'rxjs';
 import { PaginatorComponent } from '../components/paginator/paginator.component';
+import { DetalleComponent } from './detalle/detalle.component';
+import { ModalService } from './detalle/modal.service';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [RouterModule, UpperCasePipe, DatePipe, PaginatorComponent],
-  templateUrl: './clientes.component.html'
+  imports: [RouterModule, UpperCasePipe, DatePipe, PaginatorComponent, DetalleComponent],
+  templateUrl: './clientes.component.html',
+  styleUrl: './clientes.component.css'
 })
 export class ClientesComponent implements OnInit {
 
   clientes: Cliente[] = [];
   paginator: any;
+  clienteSeleccionado: Cliente;
 
   constructor(
       private service: ClienteService,
+      private modalService: ModalService,
       private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
@@ -38,7 +43,16 @@ export class ClientesComponent implements OnInit {
         this.clientes = response.content as Cliente[];
         this.paginator = response;
       });
-    })
+    });
+
+    this.modalService.notificarUpload.subscribe(cliente => {{
+      this.clientes = this.clientes.map(clienteOriginal => {
+        if(cliente.id == clienteOriginal.id){
+          clienteOriginal.foto = cliente.foto;
+        }
+        return clienteOriginal;
+      })
+    }});
   }
 
   delete(cliente: Cliente): void{
@@ -66,6 +80,12 @@ export class ClientesComponent implements OnInit {
         )
       }
     });
+  }
+
+  openModal(cliente: Cliente){
+    
+    this.clienteSeleccionado = cliente;
+    this.modalService.openModal();
   }
 
 }
