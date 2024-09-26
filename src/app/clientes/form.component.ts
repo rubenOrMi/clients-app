@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ClienteService } from './cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
 import{MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import { Region } from './region';
 
 
 @Component({
@@ -25,8 +25,11 @@ export class FormComponent implements OnInit{
     apellido: '',
     email: '',
     createAt: '',
-    foto: ''
+    foto: '',
+    region: undefined
   };
+
+  regiones: Region[];
 
   public errors: string[];
 
@@ -37,6 +40,7 @@ export class FormComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadCliente();
+    this.service.getRegiones().subscribe(regiones => this.regiones = regiones);
   }
 
   loadCliente(): void {
@@ -53,8 +57,7 @@ export class FormComponent implements OnInit{
   create(){
     this.service.create(this.cliente).subscribe(
       (cliente) => {
-        // console.log(cliente);
-        
+        console.log(cliente);
         Swal.fire({
           title: 'Usuario guardado',
           text: `El cliente ${cliente.nombre} ha sido creado con éxito!`,
@@ -85,6 +88,13 @@ export class FormComponent implements OnInit{
         console.error(err.error.errors);
       }
     )
+  }
+
+  compararRegion(o1: Region, o2: Region): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
 }

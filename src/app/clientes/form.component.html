@@ -96,6 +96,25 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </div>
                 </div>
+
+                <div class="row form-group my-2">
+                    <label for="region" class="col-sm-4">Región</label>
+                    <div class="col-sm-8">
+                        <select
+                            [compareWith]="compararRegion"
+                            class="form-select" 
+                            [(ngModel)]="cliente.region"
+                            name="region"
+                            aria-label="label for the select">
+                            @if (!cliente.region) {
+                                <option [ngValue]="undefined" disabled>--- Selecciona una región ---</option>
+                            }
+                            @for (region of regiones; track $index) {
+                                <option [ngValue]="region">{{region.nombre}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
     
                 <div class="form-group my-2 row">
                     <div class="col-sm-4"></div>
